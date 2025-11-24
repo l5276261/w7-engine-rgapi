@@ -1,0 +1,52 @@
+<!--pages/order/create.wxml-->
+<view class="container">
+  <!-- 地址选择 -->
+  <view class="section address-section" bindtap="chooseAddress">
+    <view wx:if="{{address}}" class="address-info">
+      <view class="addr-text">{{address.addressDetail}}</view>
+      <view class="user-text">{{address.userName}} {{address.telNumber}}</view>
+    </view>
+    <view wx:else class="no-address">
+      <text>请选择收货地址</text>
+      <text class="arrow">></text>
+    </view>
+  </view>
+
+  <!-- 订单明细 -->
+  <view class="section order-items">
+    <view class="merchant-name">商家名称</view>
+    <block wx:for="{{items}}" wx:key="food_id">
+      <view class="item">
+        <image class="item-img" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="item-info">
+          <view class="item-name">{{item.name}}</view>
+          <view class="item-quantity">x{{item.quantity}}</view>
+        </view>
+        <view class="item-price">¥{{item.price * item.quantity}}</view>
+      </view>
+    </block>
+    <view class="fee-row">
+      <text>配送费</text>
+      <text>¥{{deliveryFee}}</text>
+    </view>
+    <view class="total-row">
+      <text>小计</text>
+      <text class="total-price">¥{{totalPrice}}</text>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="section remark-section">
+    <text>备注</text>
+    <input class="remark-input" placeholder="请输入口味偏好等要求" bindinput="onRemarkInput" />
+  </view>
+
+  <!-- 底部支付栏 -->
+  <view class="footer-pay">
+    <view class="pay-total">
+      <text>待支付</text>
+      <text class="price">¥{{finalPrice}}</text>
+    </view>
+    <view class="pay-btn" bindtap="submitOrder">立即支付</view>
+  </view>
+</view>

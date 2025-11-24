@@ -1,0 +1,40 @@
+<!--pages/post/index.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="title">校园墙</view>
+    <view class="create-btn" bindtap="goToCreate">发帖</view>
+  </view>
+
+  <view class="post-list">
+    <block wx:for="{{postList}}" wx:key="id">
+      <view class="post-item" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="user-info">
+          <image class="avatar" src="{{item.avatar || '/images/default_avatar.png'}}"></image>
+          <view class="info-right">
+            <view class="nickname">{{item.nickname || '匿名同学'}}</view>
+            <view class="time">{{item.create_time}}</view>
+          </view>
+        </view>
+        <view class="content">{{item.content}}</view>
+        <view class="images" wx:if="{{item.images && item.images.length > 0}}">
+          <block wx:for="{{item.images}}" wx:key="*this" wx:for-item="img">
+            <image class="post-img" src="{{img}}" mode="aspectFill" catchtap="previewImage" data-current="{{img}}" data-urls="{{item.images}}"></image>
+          </block>
+        </view>
+        <view class="footer">
+          <view class="action">
+            <image src="/images/icon_like.png"></image>
+            <text>{{item.likes || 0}}</text>
+          </view>
+          <view class="action">
+            <image src="/images/icon_comment.png"></image>
+            <text>{{item.comments || 0}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  
+  <view class="loading" wx:if="{{loading}}">加载中...</view>
+  <view class="no-more" wx:if="{{!hasMore}}">没有更多了</view>
+</view>

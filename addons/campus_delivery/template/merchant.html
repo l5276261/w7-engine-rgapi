@@ -1,0 +1,95 @@
+<?php defined('IN_IA') or exit('Access Denied');?>
+<?php include $this->template('common/header');?>
+
+<div class="page-header">
+    <h1>商家管理</h1>
+</div>
+
+<div class="clearfix">
+    <form action="" method="get" class="form-horizontal form-search pull-left" style="margin-bottom: 15px;">
+        <input type="hidden" name="c" value="site">
+        <input type="hidden" name="a" value="entry">
+        <input type="hidden" name="m" value="campus_delivery">
+        <input type="hidden" name="do" value="merchant">
+
+        <div class="input-group">
+            <input type="text" class="form-control" name="keyword" value="<?php echo $_GPC['keyword'];?>"
+                placeholder="商家名称">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">搜索</button>
+            </span>
+        </div>
+    </form>
+
+    <div class="pull-right">
+        <a href="<?php echo $this->createWebUrl('merchant', array('op' => 'post'));?>" class="btn btn-primary">
+            <i class="fa fa-plus"></i> 添加商家
+        </a>
+    </div>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th width="50">ID</th>
+            <th width="80">Logo</th>
+            <th>商家名称</th>
+            <th>地址</th>
+            <th>电话</th>
+            <th width="80">评分</th>
+            <th width="100">状态</th>
+            <th width="150">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($list)) { ?>
+        <?php foreach ($list as $item) { ?>
+        <tr>
+            <td>
+                <?php echo $item['id'];?>
+            </td>
+            <td>
+                <?php if (!empty($item['logo'])) { ?>
+                <img src="<?php echo tomedia($item['logo']);?>" style="width: 60px; height: 60px;">
+                <?php } ?>
+            </td>
+            <td>
+                <?php echo $item['name'];?>
+            </td>
+            <td>
+                <?php echo $item['address'];?>
+            </td>
+            <td>
+                <?php echo $item['phone'];?>
+            </td>
+            <td>
+                <?php echo $item['rating'];?>
+            </td>
+            <td>
+                <?php if ($item['status'] == 1) { ?>
+                <span class="label label-success">营业中</span>
+                <?php } elseif ($item['status'] == 2) { ?>
+                <span class="label label-warning">休息中</span>
+                <?php } else { ?>
+                <span class="label label-default">已停用</span>
+                <?php } ?>
+            </td>
+            <td>
+                <a href="<?php echo $this->createWebUrl('merchant', array('op' => 'post', 'id' => $item['id']));?>"
+                    class="btn btn-default btn-sm">编辑</a>
+                <a href="<?php echo $this->createWebUrl('merchant', array('op' => 'delete', 'id' => $item['id']));?>"
+                    class="btn btn-danger btn-sm" onclick="return confirm('确定删除吗？');">删除</a>
+            </td>
+        </tr>
+        <?php } ?>
+        <?php } else { ?>
+        <tr>
+            <td colspan="8" class="text-center">暂无数据</td>
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>
+
+<?php echo $pager;?>
+
+<?php include $this->template('common/footer');?>

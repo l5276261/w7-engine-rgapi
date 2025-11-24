@@ -1,0 +1,36 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索商家或商品" bindconfirm="onSearch" />
+  </view>
+
+  <!-- 商家列表 -->
+  <view class="merchant-list">
+    <block wx:for="{{merchantList}}" wx:key="id">
+      <view class="merchant-item" bindtap="goToMerchant" data-id="{{item.id}}">
+        <image class="merchant-logo" src="{{item.logo}}" mode="aspectFill"></image>
+        <view class="merchant-info">
+          <view class="merchant-name">{{item.name}}</view>
+          <view class="merchant-rating">
+            <text class="rating-score">{{item.rating}}分</text>
+            <text class="sales">月售{{item.sales || 0}}</text>
+          </view>
+          <view class="merchant-delivery">
+            <text>起送 ¥{{item.min_price || 0}}</text>
+            <text class="delivery-fee">配送 ¥{{item.delivery_fee || 0}}</text>
+          </view>
+          <view class="merchant-tags" wx:if="{{item.status == 1}}">
+            <text class="tag tag-open">营业中</text>
+          </view>
+          <view class="merchant-tags" wx:else>
+            <text class="tag tag-close">休息中</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  
+  <view class="loading" wx:if="{{loading}}">加载中...</view>
+  <view class="no-more" wx:if="{{!hasMore}}">没有更多了</view>
+</view>

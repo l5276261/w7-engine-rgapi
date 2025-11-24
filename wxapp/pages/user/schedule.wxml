@@ -1,0 +1,40 @@
+<!--pages/user/schedule.wxml-->
+<view class="container">
+  <!-- 顶部周次选择 -->
+  <view class="week-selector">
+    <view class="week-text">第 {{currentWeek}} 周</view>
+    <view class="add-btn" bindtap="addCourse">+ 添加课程</view>
+  </view>
+
+  <!-- 星期表头 -->
+  <view class="week-header">
+    <view class="th-item" wx:for="{{weekDays}}" wx:key="*this">{{item}}</view>
+  </view>
+
+  <!-- 课程表主体 -->
+  <scroll-view scroll-y class="schedule-body">
+    <view class="schedule-container">
+      <!-- 节次侧边栏 -->
+      <view class="sidebar">
+        <view class="section-num" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12]}}" wx:key="*this">{{item}}</view>
+      </view>
+
+      <!-- 课程格子 -->
+      <view class="course-grid">
+        <!-- 背景网格 -->
+        <view class="grid-row" wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12]}}" wx:key="*this"></view>
+        
+        <!-- 课程卡片 -->
+        <block wx:for="{{courseList}}" wx:key="id">
+          <view class="course-item" 
+                style="left: {{(item.day - 1) * 100 / 7}}%; top: {{(item.start_section - 1) * 100}}rpx; height: {{item.duration * 100}}rpx; background-color: {{item.color}};"
+                bindtap="showCourseDetail" 
+                data-item="{{item}}">
+            <view class="course-name">{{item.name}}</view>
+            <view class="course-room">@{{item.location}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </scroll-view>
+</view>

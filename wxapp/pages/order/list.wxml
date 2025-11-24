@@ -1,0 +1,35 @@
+<!--pages/order/list.wxml-->
+<view class="container">
+  <view class="tabs">
+    <view class="tab {{status === '' ? 'active' : ''}}" bindtap="switchTab" data-status="">全部</view>
+    <view class="tab {{status === '0' ? 'active' : ''}}" bindtap="switchTab" data-status="0">待支付</view>
+    <view class="tab {{status === '1' ? 'active' : ''}}" bindtap="switchTab" data-status="1">待接单</view>
+    <view class="tab {{status === '3' ? 'active' : ''}}" bindtap="switchTab" data-status="3">配送中</view>
+  </view>
+
+  <view class="order-list">
+    <block wx:for="{{orderList}}" wx:key="id">
+      <view class="order-item" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="order-header">
+          <text class="shop-name">{{item.merchant_name}}</text>
+          <text class="status-text">{{item.status_text}}</text>
+        </view>
+        <view class="order-content">
+          <view class="goods-desc">
+            <block wx:for="{{item.items}}" wx:key="id" wx:for-item="goods">
+              <text>{{goods.food_name}} x{{goods.quantity}} </text>
+            </block>
+          </view>
+          <view class="price">¥{{item.final_price}}</view>
+        </view>
+        <view class="order-footer">
+          <view class="time">{{item.create_time}}</view>
+          <view class="btn-group">
+            <view class="btn" wx:if="{{item.status == 0}}">去支付</view>
+            <view class="btn outline" wx:if="{{item.status == 3}}">确认收货</view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

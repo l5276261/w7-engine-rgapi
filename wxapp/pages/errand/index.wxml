@@ -1,0 +1,44 @@
+<!--pages/errand/index.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="title">校园跑腿</view>
+    <view class="create-btn" bindtap="goToCreate">发布任务</view>
+  </view>
+
+  <view class="tabs">
+    <view class="tab {{status === '0' ? 'active' : ''}}" bindtap="switchTab" data-status="0">待接单</view>
+    <view class="tab {{status === '1' ? 'active' : ''}}" bindtap="switchTab" data-status="1">进行中</view>
+    <view class="tab {{status === '2' ? 'active' : ''}}" bindtap="switchTab" data-status="2">已完成</view>
+  </view>
+
+  <view class="task-list">
+    <block wx:for="{{taskList}}" wx:key="id">
+      <view class="task-item">
+        <view class="task-header">
+          <view class="task-type">跑腿任务</view>
+          <view class="task-reward">¥{{item.fee}}</view>
+        </view>
+        <view class="task-content">
+          <view class="task-desc">{{item.content}}</view>
+          <view class="task-info">
+            <view class="info-row" wx:if="{{item.pickup_address}}">
+              <text class="label">取：</text>
+              <text>{{item.pickup_address}}</text>
+            </view>
+            <view class="info-row" wx:if="{{item.delivery_address}}">
+              <text class="label">送：</text>
+              <text>{{item.delivery_address}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="task-footer">
+          <view class="time">{{item.create_time}}</view>
+          <view class="btn" wx:if="{{item.status == 0}}" bindtap="acceptTask" data-id="{{item.id}}">抢单</view>
+          <view class="status-tag" wx:if="{{item.status == 1}}">配送中</view>
+          <view class="status-tag" wx:if="{{item.status == 2}}">已完成</view>
+        </view>
+      </view>
+    </block>
+    <view class="empty" wx:if="{{taskList.length === 0}}">暂无任务</view>
+  </view>
+</view>

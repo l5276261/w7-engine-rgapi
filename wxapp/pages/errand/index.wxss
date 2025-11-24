@@ -1,0 +1,144 @@
+/* pages/errand/index.wxss */
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: #1890ff;
+  padding: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.create-btn {
+  background-color: #fff;
+  color: #1890ff;
+  padding: 10rpx 30rpx;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.tabs {
+  display: flex;
+  background-color: #fff;
+  padding: 20rpx 0;
+  margin-bottom: 20rpx;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+}
+
+.tab.active {
+  color: #1890ff;
+  font-weight: bold;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -10rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 4rpx;
+  background-color: #1890ff;
+}
+
+.task-list {
+  padding: 20rpx;
+}
+
+.task-item {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.task-type {
+  font-weight: bold;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.task-reward {
+  color: #ff4d4f;
+  font-weight: bold;
+  font-size: 32rpx;
+}
+
+.task-content {
+  margin-bottom: 20rpx;
+}
+
+.task-desc {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 15rpx;
+  line-height: 1.5;
+}
+
+.info-row {
+  display: flex;
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 5rpx;
+}
+
+.label {
+  color: #999;
+  margin-right: 10rpx;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1rpx solid #eee;
+  padding-top: 20rpx;
+}
+
+.time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.btn {
+  background-color: #1890ff;
+  color: #fff;
+  padding: 10rpx 40rpx;
+  border-radius: 30rpx;
+  font-size: 26rpx;
+}
+
+.status-tag {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.empty {
+  text-align: center;
+  color: #999;
+  padding-top: 100rpx;
+  font-size: 28rpx;
+}

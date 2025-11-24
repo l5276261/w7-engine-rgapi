@@ -1,0 +1,29 @@
+<!--pages/errand/create.wxml-->
+<view class="container">
+  <view class="form-group">
+    <view class="label">任务描述</view>
+    <textarea class="textarea" placeholder="请输入需要帮忙的事情，如：取快递、买东西等" bindinput="onContentInput"></textarea>
+  </view>
+
+  <view class="form-group">
+    <view class="label">跑腿费 (元)</view>
+    <input class="input" type="digit" placeholder="请输入金额" bindinput="onFeeInput" />
+  </view>
+
+  <view class="form-group">
+    <view class="label">取货地址 (选填)</view>
+    <input class="input" placeholder="请输入取货地址" bindinput="onPickupInput" />
+  </view>
+
+  <view class="form-group">
+    <view class="label">送货地址 (选填)</view>
+    <input class="input" placeholder="请输入送货地址" bindinput="onDeliveryInput" />
+  </view>
+
+  <view class="form-group">
+    <view class="label">联系电话</view>
+    <input class="input" type="number" placeholder="请输入联系电话" bindinput="onPhoneInput" />
+  </view>
+
+  <view class="submit-btn" bindtap="submitTask">发布任务</view>
+</view>

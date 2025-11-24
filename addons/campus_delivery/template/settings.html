@@ -1,0 +1,74 @@
+<?php defined('IN_IA') or exit('Access Denied');?>
+<?php include $this->template('common/header');?>
+
+<div class="page-header">
+    <h1>系统配置</h1>
+</div>
+
+<form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+    <div class="panel panel-default">
+        <div class="panel-heading">基础配置</div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">配送费</label>
+                <div class="col-sm-9 col-xs-12">
+                    <input type="text" name="delivery_fee" class="form-control" value="<?php echo $settings['delivery_fee']; ?>" />
+                    <span class="help-block">单位：元</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">最低起送金额</label>
+                <div class="col-sm-9 col-xs-12">
+                    <input type="text" name="min_order_amount" class="form-control" value="<?php echo $settings['min_order_amount']; ?>" />
+                    <span class="help-block">单位：元</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">分账比例配置</div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">商家分成比例</label>
+                <div class="col-sm-9 col-xs-12">
+                    <input type="text" name="merchant_profit_rate" class="form-control" value="<?php echo $settings['merchant_profit_rate']; ?>" />
+                    <span class="help-block">单位：%（外卖订单）</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">骑手分成比例</label>
+                <div class="col-sm-9 col-xs-12">
+                    <input type="text" name="rider_profit_rate" class="form-control" value="<?php echo $settings['rider_profit_rate']; ?>" />
+                    <span class="help-block">单位：%（外卖订单）</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">平台分成比例</label>
+                <div class="col-sm-9 col-xs-12">
+                    <input type="text" name="platform_profit_rate" class="form-control" value="<?php echo $settings['platform_profit_rate']; ?>" />
+                    <span class="help-block">单位：%（外卖订单，自动计算：100% - 商家 - 骑手）</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">跑腿平台抽成</label>
+                <div class="col-sm-9 col-xs-12">
+                    <input type="text" name="errand_platform_rate" class="form-control" value="<?php echo $settings['errand_platform_rate']; ?>" />
+                    <span class="help-block">单位：%（跑腿任务）</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input type="submit" name="submit" value="保存设置" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+<?php include $this->template('common/footer');?>

@@ -1,0 +1,108 @@
+/* pages/user/schedule.wxss */
+.container {
+  background-color: #fff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.week-selector {
+  padding: 20rpx 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid #eee;
+}
+
+.week-text {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.add-btn {
+  font-size: 28rpx;
+  color: #1890ff;
+}
+
+.week-header {
+  display: flex;
+  background-color: #f8f8f8;
+  padding-left: 50rpx; /* 留出侧边栏宽度 */
+}
+
+.th-item {
+  flex: 1;
+  text-align: center;
+  font-size: 24rpx;
+  color: #666;
+  padding: 10rpx 0;
+}
+
+.schedule-body {
+  flex: 1;
+  overflow: hidden;
+}
+
+.schedule-container {
+  display: flex;
+  position: relative;
+  min-height: 1200rpx; /* 12节课 * 100rpx */
+}
+
+.sidebar {
+  width: 50rpx;
+  background-color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-num {
+  height: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.course-grid {
+  flex: 1;
+  position: relative;
+}
+
+.grid-row {
+  height: 100rpx;
+  border-bottom: 1rpx dashed #eee;
+  box-sizing: border-box;
+}
+
+.course-item {
+  position: absolute;
+  width: 13.5%; /* 略小于 100/7 */
+  margin-left: 0.5%;
+  border-radius: 8rpx;
+  padding: 5rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.course-name {
+  font-size: 22rpx;
+  font-weight: bold;
+  margin-bottom: 5rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.course-room {
+  font-size: 20rpx;
+}

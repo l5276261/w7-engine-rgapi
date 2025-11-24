@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="">
+	<application setting="true">
+		<name><![CDATA[校园外卖平台]]></name>
+		<identifie><![CDATA[campus_delivery]]></identifie>
+		<version><![CDATA[1.0.0]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[集外卖、跑腿、校园墙、课程表等功能于一体的校园生活服务平台]]></ability>
+		<description><![CDATA[提供外卖订餐、跑腿服务、校园墙社交、课程表管理等功能，支持微信分账]]></description>
+		<author><![CDATA[Campus Team]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="image" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+		<supports>
+			<item type="wxapp" />
+		</supports>
+	</platform>
+	<bindings>
+		<page>
+			<entry title="首页" do="/pages/index/index" />
+			<entry title="外卖" do="/pages/food/list" />
+			<entry title="跑腿" do="/pages/errand/list" />
+			<entry title="校园墙" do="/pages/post/list" />
+			<entry title="课程表" do="/pages/schedule/index" />
+		</page>
+		<cover>
+			<entry title="首页" do="index" />
+		</cover>
+		<menu>
+			<entry title="数据概览" do="dashboard" state="" direct="false"/>
+			<entry title="商家管理" do="merchant" state="" direct="false"/>
+			<entry title="商品管理" do="food" state="" direct="false"/>
+			<entry title="商品分类" do="category" state="" direct="false"/>
+			<entry title="订单管理" do="order" state="" direct="false"/>
+			<entry title="跑腿管理" do="errand" state="" direct="false"/>
+			<entry title="校园墙管理" do="post" state="" direct="false"/>
+			<entry title="分账配置" do="profit_config" state="" direct="false"/>
+			<entry title="基础设置" do="settings" state="" direct="false"/>
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

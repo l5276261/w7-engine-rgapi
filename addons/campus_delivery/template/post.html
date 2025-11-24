@@ -1,0 +1,116 @@
+<?php defined('IN_IA') or exit('Access Denied');?>
+<?php include $this->template('common/header');?>
+
+<div class="page-header">
+    <h1>校园墙管理</h1>
+</div>
+
+<div class="clearfix">
+    <form action="" method="get" class="form-horizontal form-search pull-left" style="margin-bottom: 15px;">
+        <input type="hidden" name="c" value="site">
+        <input type="hidden" name="a" value="entry">
+        <input type="hidden" name="m" value="campus_delivery">
+        <input type="hidden" name="do" value="post">
+
+        <div class="input-group" style="width: 300px;">
+            <span class="input-group-addon">状态</span>
+            <select name="status" class="form-control">
+                <option value="">全部</option>
+                <option value="0" <?php if (isset($_GPC['status']) && $_GPC['status']==='0' ) echo 'selected' ;?>>待审核
+                </option>
+                <option value="1" <?php if ($_GPC['status']==1) echo 'selected' ;?>>已发布</option>
+                <option value="2" <?php if ($_GPC['status']==2) echo 'selected' ;?>>已删除</option>
+            </select>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">筛选</button>
+            </span>
+        </div>
+    </form>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th width="50">ID</th>
+            <th width="80">发布人</th>
+            <th width="80">分类</th>
+            <th>内容</th>
+            <th>图片</th>
+            <th width="80">数据</th>
+            <th width="80">状态</th>
+            <th width="150">发布时间</th>
+            <th width="150">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($list)) { ?>
+        <?php foreach ($list as $item) { ?>
+        <tr>
+            <td>
+                <?php echo $item['id'];?>
+            </td>
+            <td>
+                <?php echo $item['user_id'];?>
+                <?php if ($item['is_anonymous']) { ?>
+                <span class="label label-default">匿</span>
+                <?php } ?>
+            </td>
+            <td>
+                <?php echo $item['category'];?>
+            </td>
+            <td>
+                <?php echo $item['content'];?>
+            </td>
+            <td>
+                <?php 
+                        $images = json_decode($item['images'], true);
+                        if (!empty($images)) {
+                            foreach ($images as $img) {
+                                echo '<a href="'.tomedia($img).'" target="_blank"><img src="'.tomedia($img).'" style="width:40px;height:40px;margin-right:5px;"></a>';
+                            }
+                        }
+                        ?>
+            </td>
+            <td>
+                <i class="fa fa-eye"></i>
+                <?php echo $item['views'];?><br>
+                <i class="fa fa-thumbs-up"></i>
+                <?php echo $item['likes'];?><br>
+                <i class="fa fa-comment"></i>
+                <?php echo $item['comments'];?>
+            </td>
+            <td>
+                <?php if ($item['status'] == 0) { ?>
+                <span class="label label-warning">待审核</span>
+                <?php } elseif ($item['status'] == 1) { ?>
+                <span class="label label-success">已发布</span>
+                <?php } elseif ($item['status'] == 2) { ?>
+                <span class="label label-danger">已删除</span>
+                <?php } ?>
+            </td>
+            <td>
+                <?php echo date('Y-m-d H:i', $item['create_time']);?>
+            </td>
+            <td>
+                <?php if ($item['status'] == 0) { ?>
+                <a href="<?php echo $this->createWebUrl('post', array('op' => 'approve', 'id' => $item['id']));?>"
+                    class="btn btn-success btn-sm" onclick="return confirm('确定通过审核吗？');">通过</a>
+                <?php } ?>
+                <?php if ($item['status'] != 2) { ?>
+                <a href="<?php echo $this->createWebUrl('post', array('op' => 'delete', 'id' => $item['id']));?>"
+                    class="btn btn-danger btn-sm" onclick="return confirm('确定删除吗？');">删除</a>
+                <?php } ?>
+            </td>
+        </tr>
+        <?php } ?>
+        <?php } else { ?>
+        <tr>
+            <td colspan="9" class="text-center">暂无数据</td>
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>
+
+<?php echo $pager;?>
+
+<?php include $this->template('common/footer');?>

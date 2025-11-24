@@ -1,0 +1,115 @@
+<?php defined('IN_IA') or exit('Access Denied');?>
+<?php include $this->template('common/header');?>
+
+<div class="page-header">
+    <h1>跑腿任务管理</h1>
+</div>
+
+<div class="clearfix">
+    <form action="" method="get" class="form-horizontal form-search pull-left" style="margin-bottom: 15px;">
+        <input type="hidden" name="c" value="site">
+        <input type="hidden" name="a" value="entry">
+        <input type="hidden" name="m" value="campus_delivery">
+        <input type="hidden" name="do" value="errand">
+
+        <div class="input-group" style="width: 300px;">
+            <span class="input-group-addon">状态</span>
+            <select name="status" class="form-control">
+                <option value="">全部</option>
+                <option value="0" <?php if (isset($_GPC['status']) && $_GPC['status']==='0' ) echo 'selected' ;?>>待接单
+                </option>
+                <option value="1" <?php if ($_GPC['status']==1) echo 'selected' ;?>>进行中</option>
+                <option value="2" <?php if ($_GPC['status']==2) echo 'selected' ;?>>已完成</option>
+                <option value="3" <?php if ($_GPC['status']==3) echo 'selected' ;?>>已取消</option>
+            </select>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">筛选</button>
+            </span>
+        </div>
+    </form>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th width="180">任务编号</th>
+            <th>发布人ID</th>
+            <th>任务类型</th>
+            <th>任务内容</th>
+            <th>地址信息</th>
+            <th>赏金</th>
+            <th>骑手ID</th>
+            <th>状态</th>
+            <th width="150">发布时间</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($list)) { ?>
+        <?php foreach ($list as $item) { ?>
+        <tr>
+            <td>
+                <?php echo $item['task_no'];?>
+            </td>
+            <td>
+                <?php echo $item['user_id'];?>
+            </td>
+            <td>
+                <?php if ($item['type'] == 1) { ?>
+                <span class="label label-info">帮我取</span>
+                <?php } elseif ($item['type'] == 2) { ?>
+                <span class="label label-success">帮我送</span>
+                <?php } elseif ($item['type'] == 3) { ?>
+                <span class="label label-warning">帮我买</span>
+                <?php } else { ?>
+                <span class="label label-default">其他</span>
+                <?php } ?>
+            </td>
+            <td>
+                <strong>
+                    <?php echo $item['title'];?>
+                </strong><br>
+                <span class="text-muted">
+                    <?php echo $item['description'];?>
+                </span>
+            </td>
+            <td>
+                <span class="label label-primary">取</span>
+                <?php echo $item['pickup_address'];?><br>
+                <span class="label label-success">送</span>
+                <?php echo $item['delivery_address'];?><br>
+                <i class="fa fa-phone"></i>
+                <?php echo $item['contact_phone'];?>
+            </td>
+            <td><span class="text-danger">¥
+                    <?php echo $item['reward'];?>
+                </span></td>
+            <td>
+                <?php echo $item['rider_id'] ? $item['rider_id'] : '-';?>
+            </td>
+            <td>
+                <?php if ($item['status'] == 0) { ?>
+                <span class="label label-default">待接单</span>
+                <?php } elseif ($item['status'] == 1) { ?>
+                <span class="label label-primary">进行中</span>
+                <?php } elseif ($item['status'] == 2) { ?>
+                <span class="label label-success">已完成</span>
+                <?php } elseif ($item['status'] == 3) { ?>
+                <span class="label label-danger">已取消</span>
+                <?php } ?>
+            </td>
+            <td>
+                <?php echo date('Y-m-d H:i', $item['create_time']);?>
+            </td>
+        </tr>
+        <?php } ?>
+        <?php } else { ?>
+        <tr>
+            <td colspan="9" class="text-center">暂无数据</td>
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>
+
+<?php echo $pager;?>
+
+<?php include $this->template('common/footer');?>

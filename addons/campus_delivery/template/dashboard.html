@@ -1,0 +1,174 @@
+<?php defined('IN_IA') or exit('Access Denied');?>
+<?php include $this->template('common/header');?>
+
+<div class="page-header">
+    <h1>数据概览</h1>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">今日订单</div>
+            <div class="panel-body text-center">
+                <h2 class="text-info">
+                    <?php echo $today_orders;?>
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="panel panel-success">
+            <div class="panel-heading">今日营收</div>
+            <div class="panel-body text-center">
+                <h2 class="text-success">¥
+                    <?php echo $today_revenue;?>
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="panel panel-warning">
+            <div class="panel-heading">总订单量</div>
+            <div class="panel-body text-center">
+                <h2 class="text-warning">
+                    <?php echo $total_orders;?>
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="panel panel-danger">
+            <div class="panel-heading">总营收</div>
+            <div class="panel-body text-center">
+                <h2 class="text-danger">¥
+                    <?php echo $total_revenue;?>
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">待处理事项</div>
+            <div class="panel-body">
+                <a href="<?php echo $this->createWebUrl('order', array('status' => 1));?>" class="btn btn-app">
+                    <span class="badge bg-yellow">
+                        <?php echo $pending_orders;?>
+                    </span>
+                    <i class="fa fa-shopping-cart"></i> 待接单外卖
+                </a>
+                <a href="<?php echo $this->createWebUrl('errand', array('status' => 0));?>" class="btn btn-app">
+                    <span class="badge bg-green">
+                        <?php echo $pending_errands;?>
+                    </span>
+                    <i class="fa fa-bicycle"></i> 待接单跑腿
+                </a>
+                <a href="<?php echo $this->createWebUrl('post', array('status' => 0));?>" class="btn btn-app">
+                    <span class="badge bg-red">
+                        <?php echo $pending_posts;?>
+                    </span>
+                    <i class="fa fa-comment"></i> 待审核帖子
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">最新订单</div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>订单号</th>
+                    <th>金额</th>
+                    <th>状态</th>
+                    <th>下单时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($recent_orders)) { ?>
+                <?php foreach ($recent_orders as $item) { ?>
+                <tr>
+                    <td>
+                        <?php echo $item['order_no'];?>
+                    </td>
+                    <td>¥
+                        <?php echo $item['final_price'];?>
+                    </td>
+                    <td>
+                        <?php if ($item['status'] == 0) { ?>
+                        <span class="label label-default">待支付</span>
+                        <?php } elseif ($item['status'] == 1) { ?>
+                        <span class="label label-info">待接单</span>
+                        <?php } elseif ($item['status'] == 2) { ?>
+                        <span class="label label-primary">备餐中</span>
+                        <?php } elseif ($item['status'] == 3) { ?>
+                        <span class="label label-warning">配送中</span>
+                        <?php } elseif ($item['status'] == 4) { ?>
+                        <span class="label label-success">已完成</span>
+                        <?php } ?>
+                    </td>
+                    <td>
+                        <?php echo date('Y-m-d H:i:s', $item['create_time']);?>
+                    </td>
+                </tr>
+                <?php } ?>
+                <?php } else { ?>
+                <tr>
+                    <td colspan="4" class="text-center">暂无数据</td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .btn-app {
+        position: relative;
+        padding: 15px 5px;
+        margin: 0 0 10px 10px;
+        min-width: 80px;
+        height: 60px;
+        text-align: center;
+        color: #666;
+        border: 1px solid #ddd;
+        background-color: #f4f4f4;
+        font-size: 12px;
+        display: inline-block;
+        border-radius: 3px;
+    }
+
+    .btn-app>.fa {
+        font-size: 20px;
+        display: block;
+    }
+
+    .btn-app>.badge {
+        position: absolute;
+        top: -3px;
+        right: -10px;
+        font-size: 10px;
+        font-weight: 400;
+    }
+
+    .bg-yellow {
+        background-color: #f39c12 !important;
+        color: #fff;
+    }
+
+    .bg-green {
+        background-color: #00a65a !important;
+        color: #fff;
+    }
+
+    .bg-red {
+        background-color: #dd4b39 !important;
+        color: #fff;
+    }
+</style>
+
+<?php include $this->template('common/footer');?>

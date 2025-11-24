@@ -1,0 +1,118 @@
+<?php defined('IN_IA') or exit('Access Denied');?>
+<?php include $this->template('common/header');?>
+
+<div class="page-header">
+    <h1>商品管理</h1>
+</div>
+
+<div class="clearfix">
+    <form action="" method="get" class="form-horizontal form-search pull-left" style="margin-bottom: 15px;">
+        <input type="hidden" name="c" value="site">
+        <input type="hidden" name="a" value="entry">
+        <input type="hidden" name="m" value="campus_delivery">
+        <input type="hidden" name="do" value="food">
+
+        <div class="input-group" style="width: 400px;">
+            <span class="input-group-addon">商家</span>
+            <select name="merchant_id" class="form-control" style="width: 150px;">
+                <option value="">所有商家</option>
+                <?php foreach ($merchants as $merchant) { ?>
+                <option value="<?php echo $merchant['id'];?>" <?php if ($_GPC['merchant_id']==$merchant['id'])
+                    echo 'selected' ;?>>
+                    <?php echo $merchant['name'];?>
+                </option>
+                <?php } ?>
+            </select>
+            <input type="text" class="form-control" name="keyword" value="<?php echo $_GPC['keyword'];?>"
+                placeholder="商品名称" style="width: 150px;">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">搜索</button>
+            </span>
+        </div>
+    </form>
+
+    <div class="pull-right">
+        <a href="<?php echo $this->createWebUrl('food', array('op' => 'post'));?>" class="btn btn-primary">
+            <i class="fa fa-plus"></i> 添加商品
+        </a>
+    </div>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th width="50">ID</th>
+            <th width="60">图片</th>
+            <th>商品名称</th>
+            <th>所属商家</th>
+            <th>分类</th>
+            <th>价格</th>
+            <th>库存</th>
+            <th>销量</th>
+            <th width="80">状态</th>
+            <th width="150">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($list)) { ?>
+        <?php foreach ($list as $item) { ?>
+        <tr>
+            <td>
+                <?php echo $item['id'];?>
+            </td>
+            <td>
+                <?php if (!empty($item['image'])) { ?>
+                <img src="<?php echo tomedia($item['image']);?>" style="width: 40px; height: 40px;">
+                <?php } ?>
+            </td>
+            <td>
+                <?php echo $item['name'];?>
+            </td>
+            <td>
+                <?php echo $item['merchant_name'];?>
+            </td>
+            <td>
+                <?php echo $item['category_name'];?>
+            </td>
+            <td>
+                <span class="text-danger">¥
+                    <?php echo $item['price'];?>
+                </span>
+                <?php if ($item['original_price'] > 0) { ?>
+                <br><del class="text-muted">¥
+                    <?php echo $item['original_price'];?>
+                </del>
+                <?php } ?>
+            </td>
+            <td>
+                <?php echo $item['stock'] == -1 ? '无限' : $item['stock'];?>
+            </td>
+            <td>
+                <?php echo $item['sales'];?>
+            </td>
+            <td>
+                <?php if ($item['status'] == 1) { ?>
+                <span class="label label-success">上架</span>
+                <?php } else { ?>
+                <span class="label label-default">下架</span>
+                <?php } ?>
+            </td>
+            <td>
+                <a href="<?php echo $this->createWebUrl('food', array('op' => 'post', 'id' => $item['id']));?>"
+                    class="btn btn-default btn-sm">编辑</a>
+                <a href="<?php echo $this->createWebUrl('food', array('op' => 'delete', 'id' => $item['id']));?>"
+                    class="btn btn-danger btn-sm" onclick="return confirm('确定删除吗？');">删除</a>
+            </td>
+        </tr>
+        <?php } ?>
+        <?php } else { ?>
+        <tr>
+            <td colspan="10" class="text-center">暂无数据</td>
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>
+
+<?php echo $pager;?>
+
+<?php include $this->template('common/footer');?>

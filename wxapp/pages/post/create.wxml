@@ -1,0 +1,20 @@
+<!--pages/post/create.wxml-->
+<view class="container">
+  <view class="editor-box">
+    <textarea class="content-input" placeholder="分享校园新鲜事..." bindinput="onContentInput" maxlength="500"></textarea>
+    
+    <view class="image-list">
+      <block wx:for="{{images}}" wx:key="*this">
+        <view class="image-item">
+          <image src="{{item}}" mode="aspectFill"></image>
+          <view class="delete-btn" bindtap="deleteImage" data-index="{{index}}">×</view>
+        </view>
+      </block>
+      <view class="upload-btn" bindtap="chooseImage" wx:if="{{images.length < 9}}">
+        <text>+</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="submit-btn" bindtap="submitPost">发布</view>
+</view>

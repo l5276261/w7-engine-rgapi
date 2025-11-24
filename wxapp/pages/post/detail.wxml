@@ -1,0 +1,40 @@
+<!--pages/post/detail.wxml-->
+<view class="container">
+  <view class="post-card">
+    <view class="user-info">
+      <image class="avatar" src="{{post.avatar || '/images/default_avatar.png'}}"></image>
+      <view class="info-right">
+        <view class="nickname">{{post.nickname || '匿名同学'}}</view>
+        <view class="time">{{post.create_time}}</view>
+      </view>
+    </view>
+    <view class="content">{{post.content}}</view>
+    <view class="images" wx:if="{{post.images && post.images.length > 0}}">
+      <block wx:for="{{post.images}}" wx:key="*this">
+        <image class="post-img" src="{{item}}" mode="widthFix"></image>
+      </block>
+    </view>
+  </view>
+
+  <view class="comment-section">
+    <view class="section-title">评论 ({{comments.length}})</view>
+    <view class="comment-list">
+      <block wx:for="{{comments}}" wx:key="id">
+        <view class="comment-item">
+          <image class="comment-avatar" src="{{item.avatar || '/images/default_avatar.png'}}"></image>
+          <view class="comment-content">
+            <view class="comment-user">{{item.nickname || '匿名'}}</view>
+            <view class="comment-text">{{item.content}}</view>
+            <view class="comment-time">{{item.create_time}}</view>
+          </view>
+        </view>
+      </block>
+      <view class="empty" wx:if="{{comments.length === 0}}">暂无评论，快来抢沙发~</view>
+    </view>
+  </view>
+
+  <view class="footer-input">
+    <input class="input" placeholder="说点什么..." bindinput="onCommentInput" value="{{commentContent}}" confirm-type="send" bindconfirm="submitComment" />
+    <view class="send-btn" bindtap="submitComment">发送</view>
+  </view>
+</view>

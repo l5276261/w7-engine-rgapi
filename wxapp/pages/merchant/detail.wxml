@@ -1,0 +1,63 @@
+<!--pages/merchant/detail.wxml-->
+<view class="container">
+  <!-- 商家头部 -->
+  <view class="header">
+    <image class="logo" src="{{merchant.logo}}" mode="aspectFill"></image>
+    <view class="info">
+      <view class="name">{{merchant.name}}</view>
+      <view class="notice">{{merchant.description || '暂无公告'}}</view>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="content">
+    <!-- 左侧分类 -->
+    <scroll-view scroll-y class="category-list">
+      <block wx:for="{{categories}}" wx:key="id">
+        <view class="category-item {{currentCategory == item.id ? 'active' : ''}}" 
+              bindtap="switchCategory" 
+              data-id="{{item.id}}">
+          {{item.name}}
+        </view>
+      </block>
+    </scroll-view>
+
+    <!-- 右侧商品 -->
+    <scroll-view scroll-y class="food-list" scroll-into-view="{{toView}}">
+      <block wx:for="{{categories}}" wx:key="id" wx:for-item="cat">
+        <view class="category-title" id="cat_{{cat.id}}">{{cat.name}}</view>
+        <block wx:for="{{foods}}" wx:key="id" wx:if="{{item.category_id == cat.id}}">
+          <view class="food-item">
+            <image class="food-img" src="{{item.image}}" mode="aspectFill"></image>
+            <view class="food-info">
+              <view class="food-name">{{item.name}}</view>
+              <view class="food-desc">{{item.description}}</view>
+              <view class="food-sales">月售 {{item.sales}}</view>
+              <view class="food-price-row">
+                <view class="price">¥{{item.price}}</view>
+                <view class="action">
+                  <view class="btn minus" wx:if="{{cart[item.id] > 0}}" bindtap="updateCart" data-id="{{item.id}}" data-op="minus">-</view>
+                  <view class="num" wx:if="{{cart[item.id] > 0}}">{{cart[item.id]}}</view>
+                  <view class="btn plus" bindtap="updateCart" data-id="{{item.id}}" data-op="plus">+</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </block>
+    </scroll-view>
+  </view>
+
+  <!-- 底部购物车 -->
+  <view class="footer-cart" wx:if="{{totalCount > 0}}">
+    <view class="cart-icon" bindtap="showCartDetail">
+      <image src="/images/cart.png"></image>
+      <view class="badge">{{totalCount}}</view>
+    </view>
+    <view class="total-price">
+      <text class="price">¥{{totalPrice}}</text>
+      <text class="delivery-fee">配送费 ¥{{merchant.delivery_fee || 0}}</text>
+    </view>
+    <view class="checkout-btn" bindtap="goToCheckout">去结算</view>
+  </view>
+</view>

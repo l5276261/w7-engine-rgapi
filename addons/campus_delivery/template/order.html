@@ -1,0 +1,114 @@
+<?php defined('IN_IA') or exit('Access Denied');?>
+<?php include $this->template('common/header');?>
+
+<div class="page-header">
+    <h1>订单管理</h1>
+</div>
+
+<div class="clearfix">
+    <form action="" method="get" class="form-horizontal form-search pull-left" style="margin-bottom: 15px;">
+        <input type="hidden" name="c" value="site">
+        <input type="hidden" name="a" value="entry">
+        <input type="hidden" name="m" value="campus_delivery">
+        <input type="hidden" name="do" value="order">
+
+        <div class="input-group" style="width: 400px;">
+            <span class="input-group-addon">状态</span>
+            <select name="status" class="form-control" style="width: 120px;">
+                <option value="">全部</option>
+                <option value="0" <?php if (isset($_GPC['status']) && $_GPC['status']==='0' ) echo 'selected' ;?>>待支付
+                </option>
+                <option value="1" <?php if ($_GPC['status']==1) echo 'selected' ;?>>待接单</option>
+                <option value="2" <?php if ($_GPC['status']==2) echo 'selected' ;?>>备餐中</option>
+                <option value="3" <?php if ($_GPC['status']==3) echo 'selected' ;?>>配送中</option>
+                <option value="4" <?php if ($_GPC['status']==4) echo 'selected' ;?>>已完成</option>
+                <option value="5" <?php if ($_GPC['status']==5) echo 'selected' ;?>>已取消</option>
+            </select>
+            <input type="text" class="form-control" name="keyword" value="<?php echo $_GPC['keyword'];?>"
+                placeholder="订单号" style="width: 180px;">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">搜索</button>
+            </span>
+        </div>
+    </form>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th width="180">订单号</th>
+            <th>商家</th>
+            <th>用户信息</th>
+            <th>订单内容</th>
+            <th>金额</th>
+            <th>状态</th>
+            <th width="150">时间</th>
+            <th width="100">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($list)) { ?>
+        <?php foreach ($list as $item) { ?>
+        <tr>
+            <td>
+                <?php echo $item['order_no'];?>
+            </td>
+            <td>
+                <?php echo $item['merchant_name'];?>
+            </td>
+            <td>
+                <?php echo $item['delivery_name'];?><br>
+                <?php echo $item['delivery_phone'];?><br>
+                <?php echo $item['delivery_address'];?>
+            </td>
+            <td>
+                <?php foreach ($item['items'] as $goods) { ?>
+                <?php echo $goods['food_name'];?> x
+                <?php echo $goods['quantity'];?><br>
+                <?php } ?>
+            </td>
+            <td>
+                总额:
+                <?php echo $item['total_price'];?><br>
+                运费:
+                <?php echo $item['delivery_fee'];?><br>
+                <strong class="text-danger">实付:
+                    <?php echo $item['final_price'];?>
+                </strong>
+            </td>
+            <td>
+                <?php if ($item['status'] == 0) { ?>
+                <span class="label label-default">待支付</span>
+                <?php } elseif ($item['status'] == 1) { ?>
+                <span class="label label-info">待接单</span>
+                <?php } elseif ($item['status'] == 2) { ?>
+                <span class="label label-primary">备餐中</span>
+                <?php } elseif ($item['status'] == 3) { ?>
+                <span class="label label-warning">配送中</span>
+                <?php } elseif ($item['status'] == 4) { ?>
+                <span class="label label-success">已完成</span>
+                <?php } elseif ($item['status'] == 5) { ?>
+                <span class="label label-danger">已取消</span>
+                <?php } ?>
+            </td>
+            <td>
+                下单:
+                <?php echo date('Y-m-d H:i', $item['create_time']);?>
+            </td>
+            <td>
+                <a href="<?php echo $this->createWebUrl('order', array('op' => 'detail', 'id' => $item['id']));?>"
+                    class="btn btn-default btn-sm">详情</a>
+            </td>
+        </tr>
+        <?php } ?>
+        <?php } else { ?>
+        <tr>
+            <td colspan="8" class="text-center">暂无数据</td>
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>
+
+<?php echo $pager;?>
+
+<?php include $this->template('common/footer');?>

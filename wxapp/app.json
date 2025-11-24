@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/merchant/detail",
+    "pages/order/create",
+    "pages/order/list",
+    "pages/order/detail",
+    "pages/errand/index",
+    "pages/errand/create",
+    "pages/post/index",
+    "pages/post/create",
+    "pages/post/detail",
+    "pages/user/index",
+    "pages/user/schedule"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "校园生活圈",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#333",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "外卖",
+        "iconPath": "images/tabbar/home.png",
+        "selectedIconPath": "images/tabbar/home_active.png"
+      },
+      {
+        "pagePath": "pages/errand/index",
+        "text": "跑腿",
+        "iconPath": "images/tabbar/errand.png",
+        "selectedIconPath": "images/tabbar/errand_active.png"
+      },
+      {
+        "pagePath": "pages/post/index",
+        "text": "校园墙",
+        "iconPath": "images/tabbar/post.png",
+        "selectedIconPath": "images/tabbar/post_active.png"
+      },
+      {
+        "pagePath": "pages/user/index",
+        "text": "我的",
+        "iconPath": "images/tabbar/user.png",
+        "selectedIconPath": "images/tabbar/user_active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}
